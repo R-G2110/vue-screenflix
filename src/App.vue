@@ -1,6 +1,7 @@
 <script>
 import axios from 'axios';
 
+
 import Header from "./components/Header.vue";
 import Hero from './components/Hero.vue';
 import Main from './components/Main.vue';
