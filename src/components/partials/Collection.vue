@@ -121,7 +121,7 @@ export default {
 /* Animazioni per gli item */
 .anime-item {
   width: 300px; /* Larghezza fissa */
-  height: 450px; /* Altezza fissa */
+  height: 475px; /* Altezza fissa */
   //background-color: #fff;
   //color: var(--color-white);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -181,7 +181,7 @@ export default {
 /* Le immagini all'interno degli items */
 .anime-item img {
   width: 100%;
-  height: 415px;
+  height: 400px;
   object-fit: cover;
 }
 
