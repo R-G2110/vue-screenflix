@@ -13,4 +13,5 @@ export const store = reactive({
   type: 'multi',
   movie:[], 
   tv: [],
+  all: [],
 })

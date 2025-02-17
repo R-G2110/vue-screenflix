@@ -19,6 +19,12 @@ export default {
       <div class="header-actions">
         <ul>
           <li>
+            <span class="material-symbols-outlined triangle">
+              change_history
+            </span>
+            <p>change_history</p>
+          </li>
+          <li>
             <span class="material-symbols-outlined">
               search
             </span>
@@ -88,6 +94,11 @@ header {
       padding: 10px 15px;
       text-align: center;
       text-transform: capitalize;
+
+      .triangle {
+        display: inline-block;
+        transform: rotate(180deg); /* Ruota di 180 gradi */
+      }
 
       span {
         font-size: var(--font-lg);

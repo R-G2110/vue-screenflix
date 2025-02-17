@@ -28,8 +28,7 @@ export default {
           ...store.apiParams,
         },
       });
-
-      // Filtra i dati in base alla tipologia (movie o tv)
+      
       this.items = response.data.results.filter((item) => item.media_type === this.type);
     } catch (error) {
       console.error("Errore nel recupero dei dati:", error);
@@ -46,24 +45,36 @@ export default {
 <template>
   <div class="collection">
     <h2>{{ type === 'movie' ? 'Latest Movies' : 'Latest TV Series' }}</h2>
-    <h5>Discover the latest</h5>
+    <h5>Discover the latest {{ type }}</h5>
   </div>
   <swiper
     :slidesPerView="5"
+    :spaceBetween="0"
     :freeMode="true"
     :navigation="true"
     :modules="modules"
     class="mySwiper"
   >
     <swiper-slide v-for="item in items" :key="item.id">
-      <div class="anime-item">
+      <div class="item">
         <img :src="'https://image.tmdb.org/t/p/w500' + item.poster_path" :alt="item.title || item.name">
-        <h3>{{ item.title || item.name }}</h3>
-        <!-- Overlay con altri elementi -->
-        <div class="anime-item-overlay">
+        <p>{{ item.title || item.name }}</p>
+        
+        <div class="item-overlay">
           <div class="overlay-content">
-            <p>Ulteriori dettagli qui!</p>
-            <button>Vedi di più</button>
+            <p class="title">{{ item.title || item.name }}</p>
+            <p>{{ (item.vote_average/2) }} &star; ({{ item.vote_count }})</p>
+            <p class="overview">{{ item.overview }}</p>
+          </div>
+          <div class="overlay-btn">
+            <div class="btn">
+              <span class="material-symbols-outlined">play_arrow</span>
+              <p>play now</p>
+            </div>
+            <div class="btn">
+              <span class="material-symbols-outlined">add</span>
+              <p>add to watchlist</p>
+            </div>
           </div>
         </div>
       </div>
@@ -72,120 +83,147 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+$transition-fast: 0.4s ease-in-out;
+$transition-medium: 0.7s ease;
+$shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1);
+$shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
+
 .collection {
-  padding-top: 100px;
-  margin-bottom: 50px;
-  margin-left: 50px;
+  padding: 100px 0 50px 50px;
   h2 {
     font-size: var(--font-lg);
   }
 }
 
-/* Posizionamento corretto dei contenuti */
-.swiper-wrapper {
-  display: flex;
-  justify-content: center;
-}
-
 .swiper-slide {
   display: flex;
   justify-content: center;
-  padding: 0 10px; /* Spazio tra gli item */
 }
 
-/* Stile delle frecce di navigazione */
-.swiper-button-next, .swiper-button-prev {
-  display: flex !important; /* Forza la visibilità */
+.swiper-button-next,
+.swiper-button-prev {
+  display: flex !important;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
+  font-weight: 900 !important;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   z-index: 10;
+  border: 5px solid var(--color-red) !important;
 }
 
 .swiper-button-next {
-  right: -50px; /* Posiziona la freccia "next" più a destra */
+  right: -50px;
 }
-
 .swiper-button-prev {
-  left: -50px; /* Posiziona la freccia "prev" più a sinistra */
+  left: -50px;
 }
 
-.swiper-button-next:hover, .swiper-button-prev:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-/* Animazioni per gli item */
-.anime-item {
-  width: 300px; /* Larghezza fissa */
-  height: 475px; /* Altezza fissa */
-  //background-color: #fff;
-  //color: var(--color-white);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.item {
+  width: 300px;
+  height: 500px;
   position: relative;
+  box-shadow: $shadow-light;
+  overflow: hidden;
   cursor: pointer;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+
+  &:hover {
+    border: var(--border-width) solid var(--border-color);
+    box-shadow: $shadow-hover;
+  }
+
+  img {
+    width: 100%;
+    transition: transform $transition-fast;
+  }
+
+  &:hover img {
+    animation: zoomIn 0.8s ease-in-out forwards;
+  }
 }
 
-/* Overlay - inizialmente nascosto */
-.anime-item-overlay {
+@keyframes zoomIn {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.3);
+  }
+}
+
+.item-overlay {
   position: absolute;
+  padding: 0 20px;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.86);
   opacity: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
   transition: opacity 0.3s ease;
-  z-index: 2;
+  z-index: 10;
+
+  .title {
+    font-size: var(--font-md);
+    margin: 20px 0;
+  }
+
+  .overview {
+    font-size: var(--font-xs);
+    margin-bottom: 20px;
+    overflow: auto; // da corregere, quando la descrizione è più lunga 
+  }
 }
 
-/* Mostriamo l'overlay quando l'elemento è in hover */
-.anime-item:hover .anime-item-overlay {
+.item:hover .item-overlay {
   opacity: 1;
 }
 
-/* Stili per i contenuti dentro l'overlay */
-.overlay-content {
-  color: white;
-  text-align: center;
-}
+.overlay-btn {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  .btn {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    color: var(--color-white);
 
-.overlay-content p {
-  margin-bottom: 10px;
-  font-size: 1.2rem;
-}
+    span {
+      font-size: var(--font-xl);
+      color: var(--color-white);
+      transition: all $transition-medium;
+    }
+    
+    p {
+      margin-top: -5px;
+      font-size: var(--font-xxs);
+      transition: all $transition-medium;
+    }
 
-.overlay-content button {
-  padding: 10px 20px;
-  background-color: #ff4081;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
+    &:hover {
+      color: var(--color-red);
+    }
 
-.overlay-content button:hover {
-  background-color: #f50057;
+    &:hover span {
+      color: var(--color-red);
+    }
+  }
 }
+.overlay-btn span {
+  font-size: var(--font-xl);
+  color: var(--color-white);
+  transition: all $transition-medium;
 
-/* Le immagini all'interno degli items */
-.anime-item img {
-  width: 100%;
-  height: 400px;
-  object-fit: cover;
-}
-
-.anime-item h3 {
-  margin: 0;
+  
 }
 </style>
+

@@ -33,6 +33,7 @@ export default {
       .then(result => {
         if (store.type === 'multi'){
           result.data.results.forEach(object => {
+            store.all.push(object)
             if (object.media_type !== 'movie'){
               store.tv.push(object)
             } else {
@@ -52,8 +53,7 @@ export default {
       store.apiParams.query = '';
       store.type = 'multi';
       store.apiUrlBase = 'https://api.themoviedb.org/3/';
-      console.log('store.movie: '+store.movie.length);
-      console.log('store.tv: '+store.tv.length);
+     
     },
 
   },

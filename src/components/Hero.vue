@@ -14,23 +14,23 @@ export default defineComponent({
     Swiper,
     SwiperSlide,
   },
-  setup() {
+  data() {
     return {
       modules: [Autoplay, EffectFade, Navigation, Pagination],
     };
   },
-  data() {
-    return {
-      store,
-    };
-  },
   computed: {
-    movies() {
-      return this.store.movie || []; // Assicura che sia sempre un array
+    all() {
+      return store.all || [];
+    },
+    formatVoteCount() {
+      return (count) => {
+        return count >= 1000 ? (count / 1000).toFixed(1) + "k" : count;
+      };
     },
   },
   mounted() {
-    console.log("Movies:", this.store.movie);
+    console.log("all:", store.all);
   },
 });
 </script>
@@ -38,7 +38,7 @@ export default defineComponent({
 <template>
   <div class="hero">
     <swiper
-      v-if="movies.length"
+      v-if="all.length"
       :autoplay="{
         delay: 5000,
         disableOnInteraction: false,
@@ -50,21 +50,36 @@ export default defineComponent({
       :loop="true"
       class="mySwiper"
     >
-      <swiper-slide v-for="item in movies" :key="item.id">
-        <img
+      <swiper-slide v-for="item in all" :key="item.id">
+        <img 
           v-if="item.backdrop_path"
           :src="`https://image.tmdb.org/t/p/original${item.backdrop_path}`"
           :alt="item.title"
         />
-        <!-- <img v-else src="/fallback-image.jpg" alt="Fallback Image" /> -->
+        <div class="slide-content">
+          <h2 class="slide-title">{{ item.title || item.name }}</h2>
+          <p>
+            {{ item.media_type === "tv" ? "TV series" : "Movie" }}
+            <span class="vote-average">{{ (item.vote_average / 2).toFixed(1) }} ★</span>
+            <span class="vote-count">({{ formatVoteCount(item.vote_count) }} votes)</span>
+          </p>
+          
+          <div class="content-btn">
+            <span class="play-btn">Watch now</span>
+            <span class="material-symbols-outlined playlist-btn">
+              playlist_add
+            </span>
+          </div>
+        </div>
       </swiper-slide>
+      
     </swiper>
-    <p v-else>Loading movies...</p>
   </div>
 </template>
 
 <style lang="scss">
 .hero {
+  position: relative;
   margin-top: var(--header-height);
   margin-bottom: 100px;
   border-bottom: 10px solid var(--border-color-dark);
@@ -73,7 +88,7 @@ export default defineComponent({
 
 .swiper-pagination {
   position: absolute;
-  bottom: 400px !important;
+  bottom: 550px !important;
   left: 100px !important;
   transform: translateX(-40%);
 }
@@ -89,5 +104,70 @@ export default defineComponent({
   border: none !important;
   width: 200px !important;
   border-radius: 20px;
+}
+
+/* Stili per il titolo sopra l'immagine */
+.hero .swiper-slide {
+  position: relative;
+}
+
+.slide-content {
+  padding: 40px;
+  width: 33%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.89);
+  z-index: 100;
+}
+
+.slide-title { 
+  margin-top: 150px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.vote-average {
+  margin-left: 20px;
+}
+.vote-count {
+  margin-left: 5px;
+}
+
+.content-btn {
+  width: 90%;
+  position: absolute; /* Posizionamento fisso relativo a .slide-content */
+  bottom: 600px; /* Distanza dal basso */
+  left: 40px; /* Allineamento a sinistra */
+  display: flex;
+  gap: 20px;
+}
+
+
+.play-btn {
+  padding: 10px 100px;
+  font-weight: 700;
+  background-color: var(--color-white);
+  cursor: pointer;
+  transition: background-color 0.7s ease;
+  color: var(--color-red);
+  &:hover {
+    color: var(--color-gray-dark);
+    background-color: var(--color-red);
+  }
+}
+
+.playlist-btn {
+  font-size: var(--font-xl);
+  cursor: pointer;
+  transition: color 0.7s ease;
+  &:hover {
+    color: var(--color-red);
+  }
 }
 </style>

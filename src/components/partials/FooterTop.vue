@@ -26,7 +26,6 @@ export default {
         <a>investor relations</a>
         <a>how to watch screenflix</a>
         <a>about the company</a>
-        <a>release calendar</a>
       </div>
       <div class="col">
         <h4>screenflix</h4>
@@ -50,7 +49,7 @@ export default {
 
 <style lang="scss" scoped>
 .footer-top {
-  height: 500px;
+  height: 400px;
 
   .container-md {
     display: grid;
