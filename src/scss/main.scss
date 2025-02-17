@@ -1,0 +1,92 @@
+:root {
+  /* Color base */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-red: #E50914;
+  --color-gray-light: #B9B9B8;
+  --color-gray-dark: #23252B;
+
+  /* Typography */
+  --font-xxs: 0.6rem;
+  --font-xs: 0.8rem;
+  --font-base: 1rem;
+  --font-md: 1.5rem;
+  --font-lg: 2.4rem;
+  --font-xl: 3rem;
+  --font-xxl: 3.5rem;
+  --font-xxxl: 4.2rem;
+  --font-xxxxl: 5.2rem;
+
+  /* Layout */
+  --header-height: 60px;
+  --footer-height: 150px;
+
+  --border-width: 1px;
+  --border-color: var(--color-gray-light);
+  --border-color-light: var(--color-gray-light);
+  --border-color-dark: var(--color-gray-dark);
+
+  --text-color: var(--color-white);
+  --text-color-dark: var(--color-gray-dark);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - var(--header-height));
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: var(--font-base);
+  color: var(--text-color);
+  background-color: var(--color-black);
+}
+
+img {
+  width: 100%;
+}
+
+h2 {
+  font-size: var(--font-lg);
+}
+
+h4 {
+  font-size: var(--font-base);
+}
+
+.container, 
+.container-md {
+  height: 100%;
+  margin: 0 auto;
+}
+
+.container { 
+  width: 93%; 
+}
+
+.container-md {
+  width: 60%;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+
+    &:hover {
+      background: var(--color-red);
+      color: var(--text-color-dark);
+    }
+  }
+}
+
