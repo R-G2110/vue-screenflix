@@ -27,8 +27,8 @@ export default {
 <template>
   
   <div class="collection">
-    <h2>Catalogo Anime</h2>
-    <h5>Catalogo descrizione</h5>
+    <h2>Catalogo</h2>
+    <h5>descrizione</h5>
   </div>
   <swiper
     :slidesPerView="5"
