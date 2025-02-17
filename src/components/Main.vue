@@ -1,4 +1,5 @@
 <script>
+import { store } from '../data/store';
 import Collection from './partials/Collection.vue';
 import CallToAction from './partials/CallToAction.vue';
 
@@ -8,30 +9,24 @@ export default {
     Collection,
     CallToAction
   },
-  created() {},
   data() {
-    return {};
-  },
-  props: {},
-  methods: {},
+    return {
+      store
+    };
+  }
 };
 </script>
 
 <template>
   <main>
-    <Collection/>
-    <Collection/>
-    <Collection/>
-    <Collection/>
-    <Collection/>
-    <Collection/>
-    <Collection/>
-    <CallToAction/>
+    <Collection type="tv" />
+    <Collection type="movie" />
+    <CallToAction />
   </main>
 </template>
 
 <style lang="scss" scoped>
 main {
-
+  margin-top: 200px;
 }
 </style>
