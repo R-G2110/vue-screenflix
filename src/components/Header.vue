@@ -122,12 +122,14 @@ header {
         }
 
         span {
-          font-size: var(--font-lg);
+          font-size: var(--font-xl);
+          transition: all 0.3s ease-in-out;
         }
 
         p {
-          margin-top: 10px;
+          //margin-top: 10px;
           font-size: var(--font-xs);
+          transition: all 0.3s ease-in-out;
         }
       }
     }
@@ -143,6 +145,10 @@ header {
     font-size: var(--font-md);
   }
   .header-actions {
+    span {
+      font-size: var(--font-lg);
+    }
+    
     p {
       margin-top: -2px;
       font-size: var(--font-xxs);
