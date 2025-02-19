@@ -112,8 +112,8 @@ export default defineComponent({
 }
 
 .slide-content {
-  padding: 40px;
-  width: 33%;
+  padding: 20px;
+  width: 30%;
   position: absolute;
   left: 0;
   top: 0;
@@ -121,7 +121,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: flex-start;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.89);
+  background-color: rgba(0, 0, 0, 1);
   z-index: 100;
 }
 

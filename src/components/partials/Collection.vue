@@ -96,6 +96,7 @@ $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .swiper-slide {
+  cursor: pointer;
   display: flex;
   justify-content: center;
 }
@@ -129,10 +130,10 @@ $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
   box-shadow: $shadow-light;
   overflow: hidden;
   cursor: pointer;
-  transition: transform $transition-fast, box-shadow $transition-fast;
+  transition: transform $transition-fast, box-shadow $transition-fast, border $transition-fast;
 
   &:hover {
-    border: var(--border-width) solid var(--border-color);
+    border: var(--border-width) solid var(--color-red);
     box-shadow: $shadow-hover;
   }
 
@@ -200,7 +201,7 @@ $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
     span {
       font-size: var(--font-xl);
       color: var(--color-white);
-      transition: all $transition-medium;
+      transition: all 0.1s ease;
     }
     
     p {
@@ -214,6 +215,7 @@ $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
 
     &:hover span {
+      transform: scale(1.1);
       color: var(--color-red);
     }
   }
