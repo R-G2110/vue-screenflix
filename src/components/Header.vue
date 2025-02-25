@@ -29,12 +29,6 @@ export default {
       <div class="header-actions">
         <ul>
           <li>
-            <span class="material-symbols-outlined triangle">
-              change_history
-            </span>
-            <p>change_history</p>
-          </li>
-          <li>
             <span class="material-symbols-outlined">
               search
             </span>
@@ -66,7 +60,7 @@ header {
   display: flex;
   align-items: center;
   overflow: hidden;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
   background-color: var(--color-black);
   position: fixed;
   top: 0;
@@ -83,12 +77,11 @@ header {
   }
 
   .header-logo {
-    margin-right: auto;
     font-size: var(--font-lg);
     color: var(--color-red);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-
+    
     &:hover {
       color: var(--color-white);
     }
@@ -112,14 +105,8 @@ header {
         justify-content: center;
         align-items: center;
         height: 100%;
-        //padding: 0 15px;
         text-align: center;
         text-transform: capitalize;
-
-        .triangle {
-          display: inline-block;
-          transform: rotate(180deg);
-        }
 
         span {
           font-size: var(--font-xl);
@@ -127,7 +114,6 @@ header {
         }
 
         p {
-          //margin-top: 10px;
           font-size: var(--font-xs);
           transition: all 0.3s ease-in-out;
         }
@@ -140,6 +126,7 @@ header {
 .small-header {
   height: 60px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+  
 
   .header-logo {
     font-size: var(--font-md);

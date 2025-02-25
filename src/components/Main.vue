@@ -19,8 +19,8 @@ export default {
 
 <template>
   <main>
-    <Collection type="tv" />
-    <Collection type="movie" />
+    <Collection type="tv" :formatVoteCount="formatVoteCount" />
+    <Collection type="movie" :formatVoteCount="formatVoteCount" />
     <CallToAction />
   </main>
 </template>

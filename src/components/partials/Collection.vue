@@ -18,6 +18,7 @@ export default {
   },
   data() {
     return {
+      store,
       items: [], 
     };
   },
@@ -63,7 +64,7 @@ export default {
         <div class="item-overlay">
           <div class="overlay-content">
             <p class="title">{{ item.title || item.name }}</p>
-            <p>{{ (item.vote_average/2) }} &star; ({{ item.vote_count }})</p>
+            <p>{{ (item.vote_average / 2).toFixed(1) }}★ ({{ store.formatVoteCount(item.vote_count) }} votes)</p>
             <p class="overview">{{ item.overview }}</p>
           </div>
           <div class="overlay-btn">
@@ -84,12 +85,13 @@ export default {
 
 <style lang="scss" scoped>
 $transition-fast: 0.4s ease-in-out;
-$transition-medium: 0.7s ease;
+$transition-medium: 0.8s ease;
 $shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1);
 $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
 
 .collection {
   padding: 100px 0 50px 50px;
+
   h2 {
     font-size: var(--font-lg);
   }
@@ -114,13 +116,14 @@ $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   z-index: 10;
   border: 5px solid var(--color-red) !important;
-}
 
-.swiper-button-next {
-  right: -50px;
-}
-.swiper-button-prev {
-  left: -50px;
+  &.swiper-button-next {
+    right: -50px;
+  }
+
+  &.swiper-button-prev {
+    left: -50px;
+  }
 }
 
 .item {
@@ -137,22 +140,15 @@ $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
     box-shadow: $shadow-hover;
   }
 
+  &:hover img{
+    transform: scale(1.3);
+  }
+  
   img {
     width: 100%;
-    transition: transform $transition-fast;
-  }
+    height: 470px;
+    transition: transform $transition-medium;
 
-  &:hover img {
-    animation: zoomIn 0.8s ease-in-out forwards;
-  }
-}
-
-@keyframes zoomIn {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.3);
   }
 }
 
@@ -179,7 +175,7 @@ $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
   .overview {
     font-size: var(--font-xs);
     margin-bottom: 20px;
-    overflow: auto; // da corregere, quando la descrizione è più lunga 
+    overflow: auto;
   }
 }
 
@@ -192,6 +188,7 @@ $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
   position: absolute;
   bottom: 10px;
   left: 20px;
+
   .btn {
     display: flex;
     flex-direction: column;
@@ -201,9 +198,9 @@ $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
     span {
       font-size: var(--font-xl);
       color: var(--color-white);
-      transition: all 0.1s ease;
+      transition: all $transition-fast;
     }
-    
+
     p {
       margin-top: -5px;
       font-size: var(--font-xxs);
@@ -212,20 +209,13 @@ $shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.3);
 
     &:hover {
       color: var(--color-red);
-    }
 
-    &:hover span {
-      transform: scale(1.1);
-      color: var(--color-red);
+      span {
+        color: var(--color-red);
+      }
     }
   }
 }
-.overlay-btn span {
-  font-size: var(--font-xl);
-  color: var(--color-white);
-  transition: all $transition-medium;
 
-  
-}
 </style>
 

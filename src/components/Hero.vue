@@ -16,17 +16,13 @@ export default defineComponent({
   },
   data() {
     return {
+      store,
       modules: [Autoplay, EffectFade, Navigation, Pagination],
     };
   },
   computed: {
     all() {
       return store.all || [];
-    },
-    formatVoteCount() {
-      return (count) => {
-        return count >= 1000 ? (count / 1000).toFixed(1) + "k" : count;
-      };
     },
   },
   mounted() {
@@ -60,8 +56,8 @@ export default defineComponent({
           <h2 class="slide-title">{{ item.title || item.name }}</h2>
           <p>
             {{ item.media_type === "tv" ? "TV series" : "Movie" }}
-            <span class="vote-average">{{ (item.vote_average / 2).toFixed(1) }} ★</span>
-            <span class="vote-count">({{ formatVoteCount(item.vote_count) }} votes)</span>
+            <span class="vote-average">{{ (item.vote_average / 2).toFixed(1) }}★</span>
+            <span class="vote-count">({{ store.formatVoteCount(item.vote_count) }} votes)</span>
           </p>
           
           <div class="content-btn">
@@ -154,11 +150,15 @@ export default defineComponent({
   font-weight: 700;
   background-color: var(--color-white);
   cursor: pointer;
-  transition: background-color 0.7s ease;
+  transition: all 0.3s ease;
   color: var(--color-red);
+  outline: 1px solid var(--color-red);
+  outline-offset: -8px;
   &:hover {
     color: var(--color-gray-dark);
     background-color: var(--color-red);
+    outline: 2px solid var(--color-white);
+    outline-offset: 0px;
   }
 }
 

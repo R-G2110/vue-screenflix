@@ -46,9 +46,13 @@ export default {
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
-
+    transition: all 0.3s ease;
+    outline: 1px solid var(--color-gray-dark);
+    outline-offset: -5px;
+    
     &:hover {
+      outline: 2px solid var(--color-white);
+      outline-offset: 0px;
       background-color: var(--color-gray-dark); 
     }
   }
