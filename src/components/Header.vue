@@ -70,6 +70,7 @@ header {
 
   .container {
     display: flex;
+    height: 100%;
     justify-content: space-between;
     align-items: center;
     width: 93%;
@@ -77,6 +78,7 @@ header {
   }
 
   .header-logo {
+    margin-top: 10px;
     font-size: var(--font-lg);
     color: var(--color-red);
     cursor: pointer;
